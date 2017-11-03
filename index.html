@@ -50,7 +50,7 @@
 		function post(text, tool) {
 			$.ajax({
 				type: "POST",
-				url: "http://ner.semlab.io",
+				url: "https://ner.semlab.io",
 				data: JSON.stringify({text:text,tool:tool}),
 				contentType: 'application/json',
 				success: function(data,results){
@@ -68,9 +68,11 @@
 
 
 		ready(function() {
+
+			
 			$.ajax({
 				type: "GET",
-				url: "http://ner.semlab.io/ping",
+				url: "https://ner.semlab.io/ping",
 				contentType: 'application/json',
 				success: function(data){
 					$("#status").html("💁 NER Server Ready 💁");		
