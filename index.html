@@ -54,12 +54,8 @@
 				data: JSON.stringify({text:text,tool:tool}),
 				contentType: 'application/json',
 				success: function(data,results){
-					console.log(data)
-					console.log(results)
 					$("#process").toggle();		
 					var formatter = new window.JSONFormatter(data, 1, { hoverPreviewEnabled: true });	
-					console.log(formatter.render());
-
 					$("#"+tool).empty().append(formatter.render())
 				}	
 			});
@@ -69,7 +65,7 @@
 
 		ready(function() {
 
-			
+
 			$.ajax({
 				type: "GET",
 				url: "https://ner.semlab.io/ping",
