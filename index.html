@@ -71,10 +71,10 @@
 				url: "https://ner.semlab.io/ping",
 				contentType: 'application/json',
 				success: function(data){
-					$("#status").html("💁 <span style=\"color:darkred\">NER Server Down!</span> 💁");		
+					$("#status").html("💁 <span style=\"color:green\">NER Server Ready!</span> 💁");		
 				},
 				error: function(err){
-					$("#status").html("🙅 <span style=\"color:darkgreen\">NER Server Down!</span> 🙅‍");
+					$("#status").html("🙅 <span style=\"color:red\">NER Server Down!</span> 🙅‍");
 				}
 			});		
 
