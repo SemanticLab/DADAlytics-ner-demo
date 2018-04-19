@@ -50,7 +50,7 @@
 		function post(text, tool) {
 			$.ajax({
 				type: "POST",
-				url: "https://ner.semlab.io",
+				url: "https://nerserer.semlab.io",
 				data: JSON.stringify({text:text,tool:tool}),
 				contentType: 'application/json',
 				success: function(data,results){
