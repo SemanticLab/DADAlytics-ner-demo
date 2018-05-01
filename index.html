@@ -400,14 +400,14 @@
 				var orgText = inputText
 
 				// var wordAry = inputText.split(' ')
-				// results.hasErrors = true;
+				// results.hasError = true;
 				// results.errorTools = ['spotlight','spacy']
 				// results.errors = ['There was error wit spotlight, some ish happend','There was error wit spacy, some ish happend']
-				if (results.hasErrors){
+				if (results.hasError){
 					var errorHtml = "Error with tool(s): " + results.errorTools.join(', ') + '<br/>Details:<br/>' + results.errors.join('<br/>') + '<br/> Try Again <hr/>' 
 					$("#error-zone").html(errorHtml)
 				}
-				console.log(results)
+				// console.log(results)
 				var keys = Object.keys(results.results).sort(function(a, b){
 				  return b.length - a.length;
 				});
