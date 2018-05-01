@@ -4,35 +4,288 @@
 <head>
   <meta charset="utf-8">
 
-  <title>Title</title>
+  <title>DADAlytics NER Demo</title>
   <meta name="description" content="The HTML5 Herald">
   <meta name="author" content="SitePoint">
 
-  <link rel="stylesheet" href="css/styles.css?v=1.0">
+  <link rel="stylesheet" href="assets/pretty-checkbox.min.css">
   <style>
   	body{
   		font-family: sans-serif;
   	}
-  	#sample{
-  		position: absolute;
-  		left: 400px;
-  		top: 15px;
 
-  	}
   	.json-data{
   		background-color: whitesmoke;
   		padding: 10px;
+  		font-family: monospace;
+  		font-size: small;
   	}
+
+
+  	#logo{
+  		height: 115px;
+  	}
+  	#logo-text{
+
+	    display: inline-table;
+	    height: 115px;
+	    vertical-align:  bottom;
+	    margin-left: 20px;
+
+
+  	}
+  	#logo-text-dada{
+	    padding: 0;
+	    margin: 0;
+	    display: inline-table;
+	    padding-top: 25px;
+	    font-weight: bold;
+	    font-size: larger;
+
+  	}
+  	#logo-text-subtitle{
+
+		display: inline-block;
+	    padding-left: 35px;
+	    font-size: smaller;
+
+
+  	}
+  	#logo-text-subtitle a{
+	    color: black !important;
+
+
+  	}
+  	.header{
+  		font-weight: bold;
+  		margin-bottom: 5px;
+
+  	}
+  	#error-zone{
+  		color: red;
+  	}
+	textarea {
+
+
+	  width: 100%;
+	  min-height: : 400px;
+	  -moz-border-bottom-colors: none;
+	  -moz-border-left-colors: none;
+	  -moz-border-right-colors: none;
+	  -moz-border-top-colors: none;
+	  background: none repeat scroll 0 0 rgba(0, 0, 0, 0.07);
+	  border-color: -moz-use-text-color #FFFFFF #FFFFFF -moz-use-text-color;
+	  border-image: none;
+	  border-radius: 6px 6px 6px 6px;
+	  border-style: none solid solid none;
+	  border-width: medium 1px 1px medium;
+	  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12) inset;
+	  color: #555555;
+	  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	  font-size: 1em;
+	  line-height: 1.4em;
+	  padding: 5px 8px;
+	  transition: background-color 0.2s ease 0s;
+	}
+
+
+	textarea:focus {
+	    background: none repeat scroll 0 0 #FFFFFF;
+	    outline-width: 0;
+	}
+
+
+
+	.center {
+	  position: absolute;
+	  top: 50%;
+	  left: 50%;
+	  transform: translate(-50%, -50%);
+	}
+
+	.ner-type-per{
+		background-color: rgba(9, 132, 227,0.5);
+		border-radius: 5px;
+	}
+	.ner-type-org{
+		background-color: rgba(108, 92, 231,0.5);
+		border-radius: 5px;
+	}
+	.ner-type-loc{
+		background-color: rgba(225, 112, 85,0.5);
+		border-radius: 5px;
+	}
+	.ner-type-misc{
+		background-color: rgba(99, 110, 114,0.5);
+		border-radius: 5px;
+	}
+	.ner-type-undefined{
+		background-color: rgba(99, 110, 114,0.5);
+		border-radius: 5px;
+	}
+
+	.ner-type-date{
+		background-color: rgba(253, 203, 110,0.5);
+		border-radius: 5px;
+	}
+	.ner-type-tim{
+		background-color: rgba(253, 203, 110,0.5);
+		border-radius: 5px;
+	}
+	.popup-body{
+
+	}
+	.popup-title{
+		font-size: x-large;
+	}
+
+	.tippy-tooltip.ner-theme {
+	  /* Your styling here. Example: */
+	  background-color: white;
+	  border: 2px solid orange;
+	  font-weight: bold;
+	  color: #333;
+	  text-align: left;
+	}
+	.tippy-tooltip.ner-theme .tippy-backdrop {
+	  /* Your styling here. Example: */
+	  background-color: white;
+	}
+
+
+
+.button {
+  display: inline-block;
+  padding: 15px;
+  margin-right: 5px;
+  height: 50px;
+  min-width: 100px;
+  background: #5cb85c;
+  border: none;
+  outline: none;
+  color: white;
+  font-family: inherit;
+  font-weight: 400;
+  font-size: 20px;
+  border-radius: 3px;
+  box-shadow: 0 5px 0px #5cb85c;
+  border-bottom: 2px solid #51b351;
+}
+.button:hover {
+  background: #4cae4c;
+  box-shadow: 0 4px 1px #4cae4c;
+  border-bottom: 2px solid #47a447;
+  transition: all 0.1s ease-in;
+}
+.button:active {
+  transform: translateY(4px);
+  border-bottom-width: 2px;
+  box-shadow: none;
+}
+
+
+	.side ol{
+		padding: 0;
+		margin: 0;
+		font-size: large;
+	}
+	.side li{
+		margin-bottom: 15px;
+	}
+
+
+
+
+	* {box-sizing: border-box;}
+
+	    .wrapper {
+
+	        font: 1.2em Helvetica, arial, sans-serif;
+	    }
+
+	    .wrapper > * {
+	        /*border: 2px solid #f08c00;*/
+	        /*background-color: #ffec99;*/
+	        /*border-radius: 5px;*/
+	        padding: 10px;
+	    }
+
+	    nav ul {
+	        list-style: none;
+	        margin: 0;
+	        padding: 0;
+	    }
+	.main-head {
+	  grid-area: header;
+	  border-bottom: solid 1px grey;
+	}
+	.content {
+	  grid-area: content;
+	}
+	.main-nav {
+	  grid-area: nav;
+	  border-right: solid 1px grey;
+	}
+	.side {
+	  grid-area: sidebar;
+	}
+
+
+	.main-footer {
+	  grid-area: footer;
+	}
+	.wrapper {
+	  display: grid;
+	  grid-gap: 20px;
+	  grid-template-areas: 
+	    "header"
+	    "nav"
+	    "content"
+	    "sidebar"
+
+	    "footer";
+	}
+	@media (min-width: 500px) {
+	  .wrapper {
+	    grid-template-columns: 1fr 3fr;
+	    grid-template-areas: 
+	      "header  header"
+	      "nav     nav"
+	      "sidebar content"
+	      "footer      footer";
+	  }
+	  nav ul {
+	    display: flex;
+	    justify-content: space-between;
+	  }
+	}
+	@media (min-width: 700px) {
+	  .wrapper {
+	    grid-template-columns: 0.5fr 4fr 1fr;
+	    grid-template-areas: 
+	      "header header  header"
+	      "nav    content sidebar"
+	      "nav    content sidebar"
+	      "footer footer  footer"
+	   }
+	   nav ul {
+	     flex-direction: column;
+	   }
+	}
+
+
+
+
   </style>
   <!--[if lt IE 9]>
   <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
-  <script type="text/javascript" src="json-formatter.js"></script>
+  <script type="text/javascript" src="assets/json-formatter.js"></script>
 </head>
 
 <body>
 
-	<span id="status">🙅 <span style="color:red">NER Server Down!</span> 🙅‍</span>
+	<span id="status"></span>
 
 	<script>
 
@@ -47,84 +300,377 @@
 
 
 		// Post to the provided URL with the specified parameters.
-		function post(text, tool) {
-			$.ajax({
-				type: "POST",
-				url: "https://nerserver.semlab.io",
-				data: JSON.stringify({text:text,tool:tool}),
-				contentType: 'application/json',
-				success: function(data,results){
-					$("#process").toggle();		
-					var formatter = new window.JSONFormatter(data, 1, { hoverPreviewEnabled: true });	
-					$("#"+tool).empty().append(formatter.render())
-				}	
-			});
+		// function post(text, tool) {
+		// 	$.ajax({
+		// 		type: "POST",
+		// 		url: "https://nerserver.semlab.io",
+		// 		data: JSON.stringify({text:text,tool:tool}),
+		// 		contentType: 'application/json',
+		// 		success: function(data,results){
+		// 			$("#process").toggle();		
+		// 			var formatter = new window.JSONFormatter(data, 1, { hoverPreviewEnabled: true });	
+		// 			$("#"+tool).empty().append(formatter.render())
+		// 		}	
+		// 	});
 
-		}
+		// }
 
 
 		ready(function() {
 
+			var checkStatus = function(){
+				$.ajax({
+					type: "GET",
+					url: "https://nerserver.semlab.io/ping",
+					contentType: 'application/json',
+					success: function(data){
+						// $("#status").html("💁 <span style=\"color:green\">NER Server Ready!</span> 💁");		
+						// console.log(data)
+						if (data.tools){
+							data.tools.forEach(function(tool){
 
-			$.ajax({
-				type: "GET",
-				url: "https://nerserver.semlab.io/ping",
-				contentType: 'application/json',
-				success: function(data){
-					$("#status").html("💁 <span style=\"color:green\">NER Server Ready!</span> 💁");		
-				},
-				error: function(err){
-					$("#status").html("🙅 <span style=\"color:red\">NER Server Down!</span> 🙅‍");
+								if ($("#tool-check-"+tool).prop("disabled")){
+									$("#tool-check-"+tool).prop("disabled", false)
+									if (tool !== 'opener' && tool !== 'parsey'){
+										$("#tool-check-"+tool).prop("checked", true)
+									}									
+								}
+							})
+						}
+					},
+					error: function(err){
+						$("#status").html("🙅 <span style=\"color:red\">NER Server Down!</span> 🙅‍");
+						window.location.replace("https://ner.semlab.io");
+					}
+				});
+			}
+
+			var resultsCompiled =function(text,tools, cb) {
+				$.ajax({
+					type: "POST",
+					url: "https://nerserver.semlab.io/compiled",
+					data: JSON.stringify({text:text,tool:tools}),
+					contentType: 'application/json',
+					success: function(data,results){
+						// console.log(data)
+
+						// console.log(results)
+						// var formatter = new window.JSONFormatter(data, 1, { hoverPreviewEnabled: true });	
+						// $("#"+tool).empty().append(formatter.render())
+
+						resultsProcess(text,data)
+
+						if (cb){
+							cb(results)
+						}
+					},
+
+					complete: function(data,results){
+						$("#process").prop("disabled", false)
+						$("#process").text('Process')
+						$("#process").css('opacity',1)
+					}
+				});
+
+			}
+
+
+			var entityMap = {
+			  '&': '&amp;',
+			  '<': '&lt;',
+			  '>': '&gt;',
+			  '"': '&quot;',
+			  "'": '&#39;',
+			  '/': '&#x2F;',
+			  '`': '&#x60;',
+			  '=': '&#x3D;'
+			};
+
+			function escapeHtml (string) {
+			  return String(string).replace(/[&<>"'`=\/]/g, function (s) {
+			    return entityMap[s];
+			  });
+			}
+
+			var MD5 = function(s){function L(k,d){return(k<<d)|(k>>>(32-d))}function K(G,k){var I,d,F,H,x;F=(G&2147483648);H=(k&2147483648);I=(G&1073741824);d=(k&1073741824);x=(G&1073741823)+(k&1073741823);if(I&d){return(x^2147483648^F^H)}if(I|d){if(x&1073741824){return(x^3221225472^F^H)}else{return(x^1073741824^F^H)}}else{return(x^F^H)}}function r(d,F,k){return(d&F)|((~d)&k)}function q(d,F,k){return(d&k)|(F&(~k))}function p(d,F,k){return(d^F^k)}function n(d,F,k){return(F^(d|(~k)))}function u(G,F,aa,Z,k,H,I){G=K(G,K(K(r(F,aa,Z),k),I));return K(L(G,H),F)}function f(G,F,aa,Z,k,H,I){G=K(G,K(K(q(F,aa,Z),k),I));return K(L(G,H),F)}function D(G,F,aa,Z,k,H,I){G=K(G,K(K(p(F,aa,Z),k),I));return K(L(G,H),F)}function t(G,F,aa,Z,k,H,I){G=K(G,K(K(n(F,aa,Z),k),I));return K(L(G,H),F)}function e(G){var Z;var F=G.length;var x=F+8;var k=(x-(x%64))/64;var I=(k+1)*16;var aa=Array(I-1);var d=0;var H=0;while(H<F){Z=(H-(H%4))/4;d=(H%4)*8;aa[Z]=(aa[Z]| (G.charCodeAt(H)<<d));H++}Z=(H-(H%4))/4;d=(H%4)*8;aa[Z]=aa[Z]|(128<<d);aa[I-2]=F<<3;aa[I-1]=F>>>29;return aa}function B(x){var k="",F="",G,d;for(d=0;d<=3;d++){G=(x>>>(d*8))&255;F="0"+G.toString(16);k=k+F.substr(F.length-2,2)}return k}function J(k){k=k.replace(/rn/g,"n");var d="";for(var F=0;F<k.length;F++){var x=k.charCodeAt(F);if(x<128){d+=String.fromCharCode(x)}else{if((x>127)&&(x<2048)){d+=String.fromCharCode((x>>6)|192);d+=String.fromCharCode((x&63)|128)}else{d+=String.fromCharCode((x>>12)|224);d+=String.fromCharCode(((x>>6)&63)|128);d+=String.fromCharCode((x&63)|128)}}}return d}var C=Array();var P,h,E,v,g,Y,X,W,V;var S=7,Q=12,N=17,M=22;var A=5,z=9,y=14,w=20;var o=4,m=11,l=16,j=23;var U=6,T=10,R=15,O=21;s=J(s);C=e(s);Y=1732584193;X=4023233417;W=2562383102;V=271733878;for(P=0;P<C.length;P+=16){h=Y;E=X;v=W;g=V;Y=u(Y,X,W,V,C[P+0],S,3614090360);V=u(V,Y,X,W,C[P+1],Q,3905402710);W=u(W,V,Y,X,C[P+2],N,606105819);X=u(X,W,V,Y,C[P+3],M,3250441966);Y=u(Y,X,W,V,C[P+4],S,4118548399);V=u(V,Y,X,W,C[P+5],Q,1200080426);W=u(W,V,Y,X,C[P+6],N,2821735955);X=u(X,W,V,Y,C[P+7],M,4249261313);Y=u(Y,X,W,V,C[P+8],S,1770035416);V=u(V,Y,X,W,C[P+9],Q,2336552879);W=u(W,V,Y,X,C[P+10],N,4294925233);X=u(X,W,V,Y,C[P+11],M,2304563134);Y=u(Y,X,W,V,C[P+12],S,1804603682);V=u(V,Y,X,W,C[P+13],Q,4254626195);W=u(W,V,Y,X,C[P+14],N,2792965006);X=u(X,W,V,Y,C[P+15],M,1236535329);Y=f(Y,X,W,V,C[P+1],A,4129170786);V=f(V,Y,X,W,C[P+6],z,3225465664);W=f(W,V,Y,X,C[P+11],y,643717713);X=f(X,W,V,Y,C[P+0],w,3921069994);Y=f(Y,X,W,V,C[P+5],A,3593408605);V=f(V,Y,X,W,C[P+10],z,38016083);W=f(W,V,Y,X,C[P+15],y,3634488961);X=f(X,W,V,Y,C[P+4],w,3889429448);Y=f(Y,X,W,V,C[P+9],A,568446438);V=f(V,Y,X,W,C[P+14],z,3275163606);W=f(W,V,Y,X,C[P+3],y,4107603335);X=f(X,W,V,Y,C[P+8],w,1163531501);Y=f(Y,X,W,V,C[P+13],A,2850285829);V=f(V,Y,X,W,C[P+2],z,4243563512);W=f(W,V,Y,X,C[P+7],y,1735328473);X=f(X,W,V,Y,C[P+12],w,2368359562);Y=D(Y,X,W,V,C[P+5],o,4294588738);V=D(V,Y,X,W,C[P+8],m,2272392833);W=D(W,V,Y,X,C[P+11],l,1839030562);X=D(X,W,V,Y,C[P+14],j,4259657740);Y=D(Y,X,W,V,C[P+1],o,2763975236);V=D(V,Y,X,W,C[P+4],m,1272893353);W=D(W,V,Y,X,C[P+7],l,4139469664);X=D(X,W,V,Y,C[P+10],j,3200236656);Y=D(Y,X,W,V,C[P+13],o,681279174);V=D(V,Y,X,W,C[P+0],m,3936430074);W=D(W,V,Y,X,C[P+3],l,3572445317);X=D(X,W,V,Y,C[P+6],j,76029189);Y=D(Y,X,W,V,C[P+9],o,3654602809);V=D(V,Y,X,W,C[P+12],m,3873151461);W=D(W,V,Y,X,C[P+15],l,530742520);X=D(X,W,V,Y,C[P+2],j,3299628645);Y=t(Y,X,W,V,C[P+0],U,4096336452);V=t(V,Y,X,W,C[P+7],T,1126891415);W=t(W,V,Y,X,C[P+14],R,2878612391);X=t(X,W,V,Y,C[P+5],O,4237533241);Y=t(Y,X,W,V,C[P+12],U,1700485571);V=t(V,Y,X,W,C[P+3],T,2399980690);W=t(W,V,Y,X,C[P+10],R,4293915773);X=t(X,W,V,Y,C[P+1],O,2240044497);Y=t(Y,X,W,V,C[P+8],U,1873313359);V=t(V,Y,X,W,C[P+15],T,4264355552);W=t(W,V,Y,X,C[P+6],R,2734768916);X=t(X,W,V,Y,C[P+13],O,1309151649);Y=t(Y,X,W,V,C[P+4],U,4149444226);V=t(V,Y,X,W,C[P+11],T,3174756917);W=t(W,V,Y,X,C[P+2],R,718787259);X=t(X,W,V,Y,C[P+9],O,3951481745);Y=K(Y,h);X=K(X,E);W=K(W,v);V=K(V,g)}var i=B(Y)+B(X)+B(W)+B(V);return i.toLowerCase()};
+
+
+
+			var resultsProcess =function(inputText,results){
+				var orgText = inputText
+
+				// var wordAry = inputText.split(' ')
+				// results.hasErrors = true;
+				// results.errorTools = ['spotlight','spacy']
+				// results.errors = ['There was error wit spotlight, some ish happend','There was error wit spacy, some ish happend']
+				if (results.hasErrors){
+					var errorHtml = "Error with tool(s): " + results.errorTools.join(', ') + '<br/>Details:<br/>' + results.errors.join('<br/>') + '<br/> Try Again <hr/>' 
+					$("#error-zone").html(errorHtml)
 				}
-			});		
+				console.log(results)
+				var keys = Object.keys(results.results).sort(function(a, b){
+				  return b.length - a.length;
+				});
+				// console.log(keys)
+				var counter = 0;
+				var dataLookUp = {}
+				keys.forEach(function(key){
+
+					if (results.results[key].text.trim().length < 2){
+						return false
+					}
+
+					if (!isNaN(results.results[key].text.trim()) && results.results[key].text.trim().length < 4){
+						return false
+					}
+
+					results.results[key].id = MD5(counter++ + results.results[key].text)
+
+					var replace = results.results[key].text.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&")
+
+					var re = new RegExp(replace,"g");
+					inputText = inputText.replace(re, '<span class="ner-word ner-type-'+ results.results[key].typeMode +'" id="found-word-' + results.results[key].id +'" data-id="'+results.results[key].id+'">' + escapeHtml(results.results[key].text) + '</span>');
+
+					dataLookUp[results.results[key].id] = results.results[key]
+
+
+				})
+				inputText = inputText.replace(/\n/g,'<br/>');
+				// console.log(inputText)
+				$("#results").html(inputText + '<br/></br><hr/>');
+				// console.log(results)
+
+
+				$(".ner-word").each(function( key, element ) {
+				  	var id = $(element).data('id');
+
+					const template = document.createElement('div');
+					var html = '<div class="popup-body">'
+					html = html + '<div class="popup-title">'+dataLookUp[id].text+'</div>'
+					html = html + '<div class="popup-type">Type: '+dataLookUp[id].typeMode + ' (' + dataLookUp[id].type.join(', ')  + ')'+'</div>'
+					html = html + '<div class="popup-type">Tools: '+dataLookUp[id].confidence + '% (' + dataLookUp[id].tool.join(', ')  + ')'+'</div>'
+										
+					if (dataLookUp[id].spotlightUri){
+						html = html + '<div class="popup-url"><a target="_blank" href="'+dataLookUp[id].spotlightUri+'">DBpedia</a></div>'
+					}
+					html = html + '</div>'
+
+
+					template.innerHTML = html
+					// console.log(template)
+
+
+					tippy(element, {
+						interactive: true,
+						html:template,
+						theme:'ner'
+					})
+
+				});
+
+
+
+				var formatter = new window.JSONFormatter(results, 1, { hoverPreviewEnabled: true });	
+				$("#json-data").empty().append(formatter.render())
+
+
+				var curlText = orgText.replace(/"/g,'\\"')
+				var curlText = curlText.replace(/'/g,"'\\''")
+				var curlText = curlText.replace(/\n/g," ")
+
+				var tools = []
+				$(".tool-checks").each(function(i,el){
+					if ($(el).prop("checked")){
+						tools.push($(el).attr('id').replace('tool-check-',''))
+					}
+				})
+
+				tools = JSON.stringify(tools)
+
+				var host = location.protocol+'//'+location.hostname+(location.port ? ':'+location.port: '') + '/compiled';
+
+				var curl = "curl -H \"Content-Type: application/json\" -X POST -d '{\"text\":\""+curlText+"\",\"tool\":"+tools+"}' " + host
+
+				$("#curl").text(curl)
+
+				var python = "import requests<br/><br/>"
+
+				python = python + 'text = """' + orgText.replace(/\n/g," ") + '"""<br/><br/>'
+
+				python = python + "r = requests.post('"+host+"', json={\"text\": text, \"tool\":" +tools+"})<br/><br/>"
+				python = python + 'data = r.json()<br/><br/>'
+				python = python + "for key in data['results']:<br/>"
+				python = python + "&nbsp;&nbsp;print(data['results'][key])<br/><br/>"
+				
+
+				$("#python").html(python)
+
+
+			}
+
+
+
+
+			checkStatus();
+			window.setInterval(checkStatus,600000);
+
 
 			$("#process").click(function(){
-				$("#process").toggle()
 
-				$("#spotlight").html("Working...")
-				post($("#textarea").val(),"spotlight");
-				
-				$("#stanford").html("Working...")
-				post($("#textarea").val(),"stanford");
+				var tools = []
+				$(".tool-checks").each(function(i,el){
+					if ($(el).prop("checked")){
+						tools.push($(el).attr('id').replace('tool-check-',''))
+					}
+				})
 
-				$("#opener").html("Working...")
-				post($("#textarea").val(),"opener");
+				if ($("#textarea").val().trim()==''){
+					alert('No text entered.')
+					return(false)
+				}
 
-				$("#spacy").html("Working...")
-				post($("#textarea").val(),"spacy");
+				$("#process").prop("disabled", true);
+				$("#process").text('Working...');
+				$("#process").css('opacity',0.25);
+				// $("#textarea").toggle();
 
-				$("#nltk").html("Working...")
-				post($("#textarea").val(),"nltk");
-				
-				$("#parsey").html("Working...")
-				post($("#textarea").val(),"parsey");
+
+				$("#logo").attr('src','assets/dada_logo.gif')
+				$("#error-zone").html('')
+
+				resultsCompiled($("#textarea").val(),tools,function(results){
+					$("#logo").attr('src','assets/dada_logo.jpg')
+				})
+
+
+
+
+
 
 			});
+
 			$("#sample").click(function(e){
 				var sample = "Dada (/ˈdɑːdɑː/) or Dadaism was an art movement of the European avant-garde in the early 20th century, with early centers in Zürich, Switzerland at the Cabaret Voltaire (circa 1916); New York Dada began circa 1915,[1] and after 1920 Dada flourished in Paris. Developed in reaction to World War I, the Dada movement consisted of artists who rejected the logic, reason, and aestheticism of modern capitalist society, instead expressing nonsense, irrationality, and anti-bourgeois protest in their works.[2][3][4] The art of the movement spanned visual, literary, and sound media, including collage, sound poetry, cut-up writing, and sculpture. Dadaist artists expressed their discontent with violence, war, and nationalism, and maintained political affinities with the radical left.[5] \n\n Cover of the first edition of the publication Dada by Tristan Tzara; Zürich, 1917 There is no consensus on the origin of the movement's name; a common story is that the Austrian artist Richard Huelsenbeck plunged a knife at random into a dictionary, where it landed on 'dada', a colloquial French term for a hobby horse. Others note that it suggests the first words of a child, evoking a childishness and absurdity that appealed to the group. Still others speculate that the word might have been chosen to evoke a similar meaning (or no meaning at all) in any language, reflecting the movement's internationalism.[6] \n\n The roots of Dada lay in pre-war avant-garde. The term anti-art, a precursor to Dada, was coined by Marcel Duchamp around 1913 to characterize works which challenge accepted definitions of art.[7] Cubism and the development of collage and abstract art would inform the movement's detachment from the constraints of reality and convention. The work of French poets, Italian Futurists and the German Expressionists would influence Dada's rejection of the tight correlation between words and meaning.[8][9] Works such as Ubu Roi (1896) by Alfred Jarry, and the ballet Parade (1916–17) by Erik Satie would also be characterized as proto-Dadaist works.[10] The Dada movement's principles were first collected in Hugo Ball's Dada Manifesto in 1916. \n\nThe Dadaist movement included public gatherings, demonstrations, and publication of art/literary journals; passionate coverage of art, politics, and culture were topics often discussed in a variety of media. Key figures in the movement included Hugo Ball, Marcel Duchamp, Emmy Hennings, Hans Arp, Raoul Hausmann, Hannah Höch, Johannes Baader, Tristan Tzara, Francis Picabia, Huelsenbeck, George Grosz, John Heartfield, Man Ray, Beatrice Wood, Kurt Schwitters, Hans Richter, and Max Ernst, among others. The movement influenced later styles like the avant-garde and downtown music movements, and groups including surrealism, nouveau réalisme, pop art and Fluxus."
 				$("#textarea").val(sample);
 				e.preventDefault();
 			});
+
+			
+			tippy('.slow-note')
+
 		});
 	</script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-	<br/>
-	<a href="#" id="sample">Use sample text</a>
-	<textarea placeholder="Enter text to process here." id="textarea" style="margin: 0px; height: 326px; width: 503px;"></textarea>
-	<br/>
-	<button id="process">Process Text</button>
-	<hr/>
-	<pre class="json-data">DBpedia Spotlight:<br/><code id="spotlight"></code></pre>
-	<hr/>
-	<pre class="json-data">Stanford NLP:<br/><code id="stanford"></code></pre>
-	<hr/>
-	<pre class="json-data">spaCy:<br/><code id="spacy"></code></pre>
-	<hr/>
-	<pre class="json-data">NLTK Groningen Meaning Bank (GMB):<br/><code id="nltk"></code></pre>
-	<hr/>
-	<pre class="json-data">SyntaxNet/Parsey McParseface:<br/><code id="parsey"></code></pre>
-	<hr/>	
-	<pre class="json-data">OpeNER:<br/><code id="opener"></code></pre>
+	<script src="assets/tippy.all.min.js"></script>
+
+
+
+	<div class="wrapper">
+	        <header class="main-head">
+	        	<img src="assets/dada_logo.jpg" id="logo" alt="DADAlytics logo" title="DADAlytics logo"/>
+	        	<div id="logo-text"><span id="logo-text-dada">DADAlytics NER Demo</span><br/><span id="logo-text-subtitle">A project by <a href="http://semlab.io/projects/">Semantic Lab</a></span></div>
+	        </header>
+	        <nav class="main-nav">
+	        	<div class="header">Select NER Tool:</div>
+	            <ul>
+	                <li>
+					    <div class="pretty p-svg p-curve p-pulse">
+					        <input class="tool-checks" id="tool-check-spotlight" type="checkbox" disabled />
+					        <div class="state p-success">
+					            <!-- svg path -->
+					            <svg class="svg svg-icon" viewBox="0 0 20 20">
+					                <path d="M7.629,14.566c0.125,0.125,0.291,0.188,0.456,0.188c0.164,0,0.329-0.062,0.456-0.188l8.219-8.221c0.252-0.252,0.252-0.659,0-0.911c-0.252-0.252-0.659-0.252-0.911,0l-7.764,7.763L4.152,9.267c-0.252-0.251-0.66-0.251-0.911,0c-0.252,0.252-0.252,0.66,0,0.911L7.629,14.566z" style="stroke: white;fill:white;"></path>
+					            </svg>
+
+					            <label>DBpedia Spotlight</label>
+					        </div>
+					    </div>
+					    <div class="pretty p-svg p-curve p-pulse">
+					        <input class="tool-checks" id="tool-check-stanford" type="checkbox" disabled />
+					        <div class="state p-success">
+					            <!-- svg path -->
+					            <svg class="svg svg-icon" viewBox="0 0 20 20">
+					                <path d="M7.629,14.566c0.125,0.125,0.291,0.188,0.456,0.188c0.164,0,0.329-0.062,0.456-0.188l8.219-8.221c0.252-0.252,0.252-0.659,0-0.911c-0.252-0.252-0.659-0.252-0.911,0l-7.764,7.763L4.152,9.267c-0.252-0.251-0.66-0.251-0.911,0c-0.252,0.252-0.252,0.66,0,0.911L7.629,14.566z" style="stroke: white;fill:white;"></path>
+					            </svg>					        	
+					            <label>Stanford NLP</label>
+					        </div>
+					    </div>
+					    <div class="pretty p-svg p-curve p-pulse">
+					        <input class="tool-checks" id="tool-check-nltk" type="checkbox" disabled />
+					        <div class="state p-success">
+					            <!-- svg path -->
+					            <svg class="svg svg-icon" viewBox="0 0 20 20">
+					                <path d="M7.629,14.566c0.125,0.125,0.291,0.188,0.456,0.188c0.164,0,0.329-0.062,0.456-0.188l8.219-8.221c0.252-0.252,0.252-0.659,0-0.911c-0.252-0.252-0.659-0.252-0.911,0l-7.764,7.763L4.152,9.267c-0.252-0.251-0.66-0.251-0.911,0c-0.252,0.252-0.252,0.66,0,0.911L7.629,14.566z" style="stroke: white;fill:white;"></path>
+					            </svg>					        	
+					            <label>NLTK (GMB)</label>
+					        </div>
+					    </div>
+					    <div class="pretty p-svg p-curve p-pulse">
+					        <input class="tool-checks" id="tool-check-spacy" type="checkbox" disabled />
+					        <div class="state p-success">
+					            <!-- svg path -->
+					            <svg class="svg svg-icon" viewBox="0 0 20 20">
+					                <path d="M7.629,14.566c0.125,0.125,0.291,0.188,0.456,0.188c0.164,0,0.329-0.062,0.456-0.188l8.219-8.221c0.252-0.252,0.252-0.659,0-0.911c-0.252-0.252-0.659-0.252-0.911,0l-7.764,7.763L4.152,9.267c-0.252-0.251-0.66-0.251-0.911,0c-0.252,0.252-0.252,0.66,0,0.911L7.629,14.566z" style="stroke: white;fill:white;"></path>
+					            </svg>					        	
+					            <label>SpaCy</label>
+					        </div>
+					    </div>
+					    <div class="pretty p-svg p-curve p-pulse slow-note" title="These tools are unselected by default due to slow performance. Feel free to enable them but it will increase processing time.">
+					        <input class="tool-checks" id="tool-check-opener" type="checkbox" disabled />
+					        <div class="state p-success">
+					            <!-- svg path -->
+					            <svg class="svg svg-icon" viewBox="0 0 20 20">
+					                <path d="M7.629,14.566c0.125,0.125,0.291,0.188,0.456,0.188c0.164,0,0.329-0.062,0.456-0.188l8.219-8.221c0.252-0.252,0.252-0.659,0-0.911c-0.252-0.252-0.659-0.252-0.911,0l-7.764,7.763L4.152,9.267c-0.252-0.251-0.66-0.251-0.911,0c-0.252,0.252-0.252,0.66,0,0.911L7.629,14.566z" style="stroke: white;fill:white;"></path>
+					            </svg>					        	
+					            <label class="slow-note" title="These tools are selected by default due to slow performance. Feel free to enable them but it will increase processing time.">OpeNER❓</label>
+					        </div>
+					    </div>
+					    <div class="pretty p-svg p-curve p-pulse slow-note" title="These tools are unselected by default due to slow performance. Feel free to enable them but it will increase processing time.">
+					        <input class="tool-checks" id="tool-check-parsey" type="checkbox" disabled />
+					        <div class="state p-success">
+					            <!-- svg path -->
+					            <svg class="svg svg-icon" viewBox="0 0 20 20">
+					                <path d="M7.629,14.566c0.125,0.125,0.291,0.188,0.456,0.188c0.164,0,0.329-0.062,0.456-0.188l8.219-8.221c0.252-0.252,0.252-0.659,0-0.911c-0.252-0.252-0.659-0.252-0.911,0l-7.764,7.763L4.152,9.267c-0.252-0.251-0.66-0.251-0.911,0c-0.252,0.252-0.252,0.66,0,0.911L7.629,14.566z" style="stroke: white;fill:white;"></path>
+					            </svg>					        	
+					            <label >SyntaxNet/Parsey❓</label>
+					        </div>
+					    </div>
+
+	                </li>
+	            </ul>
+	        </nav>
+	        <article class="content">
+	        	<div id="error-zone"></div>
+	            <div id="results"></div>
+	            <textarea id="textarea" placeholder="Enter text here to process, or click sample text." rows="20" name="comment[text]" id="comment_text" cols="40" class="ui-autocomplete-input" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true"></textarea>
+	            
+
+	        </article> 
+	        <aside class="side">
+	        	<ol>
+	        		<li>Select which NER Tools to use.</li>
+	        		<li>Enter text or <a href="#" id="sample">Use sample text</a>.</li>
+	        		<li><button id="process" class="button">Process</button></li>
+	        	</ol>
+	        	<hr>
+	        	<p style="font-size: smaller;">
+	        		This system is powered by a modular docker image. You can easily run your own server, read more.
+	        	</p>
+	        	<br/><br/></aside>
+
+	        <footer class="main-footer">Data Response:
+	        	<div id="json-data" class="json-data"></div>
+	        	Example Curl Command:
+	        	<div id="curl" class="json-data"></div>
+	        	Example Python Script:
+	        	<div id="python" class="json-data"></div>
+
+	        </footer>
+	</div>
+
+
+<img src="assets/dada_logo.gif" width="0" height="0" style="=width: 0px; height: 0px;">
+
 
 </body>
 </html>

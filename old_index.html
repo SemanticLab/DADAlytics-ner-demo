@@ -1,0 +1,130 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Title</title>
+  <meta name="description" content="The HTML5 Herald">
+  <meta name="author" content="SitePoint">
+
+  <link rel="stylesheet" href="css/styles.css?v=1.0">
+  <style>
+  	body{
+  		font-family: sans-serif;
+  	}
+  	#sample{
+  		position: absolute;
+  		left: 400px;
+  		top: 15px;
+
+  	}
+  	.json-data{
+  		background-color: whitesmoke;
+  		padding: 10px;
+  	}
+  </style>
+  <!--[if lt IE 9]>
+  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <script type="text/javascript" src="json-formatter.js"></script>
+</head>
+
+<body>
+
+	<span id="status">🙅 <span style="color:red">NER Server Down!</span> 🙅‍</span>
+
+	<script>
+
+		function ready(fn) {
+		  if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading"){
+		    fn();
+		  } else {
+		    document.addEventListener('DOMContentLoaded', fn);
+		  }
+		}
+
+
+
+		// Post to the provided URL with the specified parameters.
+		function post(text, tool) {
+			$.ajax({
+				type: "POST",
+				url: "https://nerserver.semlab.io",
+				data: JSON.stringify({text:text,tool:tool}),
+				contentType: 'application/json',
+				success: function(data,results){
+					$("#process").toggle();		
+					var formatter = new window.JSONFormatter(data, 1, { hoverPreviewEnabled: true });	
+					$("#"+tool).empty().append(formatter.render())
+				}	
+			});
+
+		}
+
+
+		ready(function() {
+
+
+			$.ajax({
+				type: "GET",
+				url: "https://nerserver.semlab.io/ping",
+				contentType: 'application/json',
+				success: function(data){
+					$("#status").html("💁 <span style=\"color:green\">NER Server Ready!</span> 💁");		
+				},
+				error: function(err){
+					$("#status").html("🙅 <span style=\"color:red\">NER Server Down!</span> 🙅‍");
+				}
+			});		
+
+			$("#process").click(function(){
+				$("#process").toggle()
+
+				$("#spotlight").html("Working...")
+				post($("#textarea").val(),"spotlight");
+				
+				$("#stanford").html("Working...")
+				post($("#textarea").val(),"stanford");
+
+				$("#opener").html("Working...")
+				post($("#textarea").val(),"opener");
+
+				$("#spacy").html("Working...")
+				post($("#textarea").val(),"spacy");
+
+				$("#nltk").html("Working...")
+				post($("#textarea").val(),"nltk");
+				
+				$("#parsey").html("Working...")
+				post($("#textarea").val(),"parsey");
+
+			});
+			$("#sample").click(function(e){
+				var sample = "Dada (/ˈdɑːdɑː/) or Dadaism was an art movement of the European avant-garde in the early 20th century, with early centers in Zürich, Switzerland at the Cabaret Voltaire (circa 1916); New York Dada began circa 1915,[1] and after 1920 Dada flourished in Paris. Developed in reaction to World War I, the Dada movement consisted of artists who rejected the logic, reason, and aestheticism of modern capitalist society, instead expressing nonsense, irrationality, and anti-bourgeois protest in their works.[2][3][4] The art of the movement spanned visual, literary, and sound media, including collage, sound poetry, cut-up writing, and sculpture. Dadaist artists expressed their discontent with violence, war, and nationalism, and maintained political affinities with the radical left.[5] \n\n Cover of the first edition of the publication Dada by Tristan Tzara; Zürich, 1917 There is no consensus on the origin of the movement's name; a common story is that the Austrian artist Richard Huelsenbeck plunged a knife at random into a dictionary, where it landed on 'dada', a colloquial French term for a hobby horse. Others note that it suggests the first words of a child, evoking a childishness and absurdity that appealed to the group. Still others speculate that the word might have been chosen to evoke a similar meaning (or no meaning at all) in any language, reflecting the movement's internationalism.[6] \n\n The roots of Dada lay in pre-war avant-garde. The term anti-art, a precursor to Dada, was coined by Marcel Duchamp around 1913 to characterize works which challenge accepted definitions of art.[7] Cubism and the development of collage and abstract art would inform the movement's detachment from the constraints of reality and convention. The work of French poets, Italian Futurists and the German Expressionists would influence Dada's rejection of the tight correlation between words and meaning.[8][9] Works such as Ubu Roi (1896) by Alfred Jarry, and the ballet Parade (1916–17) by Erik Satie would also be characterized as proto-Dadaist works.[10] The Dada movement's principles were first collected in Hugo Ball's Dada Manifesto in 1916. \n\nThe Dadaist movement included public gatherings, demonstrations, and publication of art/literary journals; passionate coverage of art, politics, and culture were topics often discussed in a variety of media. Key figures in the movement included Hugo Ball, Marcel Duchamp, Emmy Hennings, Hans Arp, Raoul Hausmann, Hannah Höch, Johannes Baader, Tristan Tzara, Francis Picabia, Huelsenbeck, George Grosz, John Heartfield, Man Ray, Beatrice Wood, Kurt Schwitters, Hans Richter, and Max Ernst, among others. The movement influenced later styles like the avant-garde and downtown music movements, and groups including surrealism, nouveau réalisme, pop art and Fluxus."
+				$("#textarea").val(sample);
+				e.preventDefault();
+			});
+		});
+	</script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+	<br/>
+	<a href="#" id="sample">Use sample text</a>
+	<textarea placeholder="Enter text to process here." id="textarea" style="margin: 0px; height: 326px; width: 503px;"></textarea>
+	<br/>
+	<button id="process">Process Text</button>
+	<hr/>
+	<pre class="json-data">DBpedia Spotlight:<br/><code id="spotlight"></code></pre>
+	<hr/>
+	<pre class="json-data">Stanford NLP:<br/><code id="stanford"></code></pre>
+	<hr/>
+	<pre class="json-data">spaCy:<br/><code id="spacy"></code></pre>
+	<hr/>
+	<pre class="json-data">NLTK Groningen Meaning Bank (GMB):<br/><code id="nltk"></code></pre>
+	<hr/>
+	<pre class="json-data">SyntaxNet/Parsey McParseface:<br/><code id="parsey"></code></pre>
+	<hr/>	
+	<pre class="json-data">OpeNER:<br/><code id="opener"></code></pre>
+
+</body>
+</html>
