@@ -487,7 +487,7 @@
 
 				tools = JSON.stringify(tools)
 
-				var host = location.protocol+'//'+location.hostname+(location.port ? ':'+location.port: '') + '/compiled';
+				var host = 'https://nerserver.semlab.io/compiled';
 
 				var curl = "curl -H \"Content-Type: application/json\" -X POST -d '{\"text\":\""+curlText+"\",\"tool\":"+tools+"}' " + host
 
